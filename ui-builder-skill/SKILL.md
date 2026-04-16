@@ -1,21 +1,23 @@
 ---
 name: ui-builder-skill
-description: Generates production-ready React UI webpage using Syncfusion components. Orchestrates 9 sequential stages intent analysis, project detection, layout confirmation, component picking, preview generation, code generation, web standards validation, dependency management, and code insertion. Outputs full TypeScript components with WCAG 2.1 AA accessibility, responsive design, and enterprise-grade quality.
+description: AI-driven React UI component generator using Syncfusion. Guides AI through 8-stage orchestrated workflow to generate production-ready components with WCAG 2.1 AA accessibility and responsive design. No manual API knowledge required.
 license: Proprietary
-compatibility: Requires Node.js 18+, npm/yarn/pnpm, React 18+ projects (Next.js 13+, Vite, or Create React App)
+compatibility: React 18+, Next.js 13+, Vite, Create React App; Node.js 18+; Syncfusion license
 metadata:
-  author: Syncfusion
-  version: 1.0.0
-  supported-frameworks: "React 18+, Next.js 13+ (App Router & Pages Router), Vite, Create React App"
+  version: "2.0"
+  architecture: "Agent Skills Spec Compliant"
   target-release: "Q2 2026"
-allowed-tools: bash npm read write
+  supported-frameworks: "React 18+, Next.js 13+ (App Router & Pages Router), Vite, Create React App"
+allowed-tools: read write
 ---
 
 # UI Builder Skill
 
 ## Overview
 
-The UI Builder Skill is a **frontend-only** React component generator that creates production-ready UI components and pages using Syncfusion components. It operates exclusively on the frontend layer—generating React components, CSS stylesheets, and TypeScript interfaces—while leaving backend, API, database, and infrastructure concerns to the consuming application.
+The **UI Builder Skill** is a frontend-only React component generator that orchestrates an AI agent through 8 stages to generate production-ready UI components powered by Syncfusion.
+
+This spec is **Agent Skills Specification compliant** with one-level-deep file references for optimal context loading by AI agents.
 
 ## What This Skill Does
 
@@ -49,29 +51,27 @@ The UI Builder Skill is a **frontend-only** React component generator that creat
 
 ```
 ui-builder-skill/
-├── SKILL.md                              # This file (main entry point)
-├── scripts/                              # Executable Python scripts
-│   ├── orchestrator.py                   # Main orchestrator (entry point)
-│   ├── context.py                        # UIBuilderContext state management
-│   ├── stage_1_intent.py                 # Stage 1: Intent Analysis
-│   ├── stage_2_detection.py              # Stage 2: Project Detection
-│   ├── stage_3_layout.py                 # Stage 3: Layout Confirmation
-│   ├── stage_4_components.py             # Stage 4: Component Picking
-│   ├── stage_5_preview.py                # Stage 5: Preview Generation
-│   ├── stage_6_codegen.py                # Stage 6: Code Generation
-│   ├── stage_7_validation.py             # Stage 7: Validation
-│   ├── stage_8_dependencies.py           # Stage 8: Dependency Management
-│   ├── stage_9_insertion.py              # Stage 9: Code Insertion
-│   └── README.md                         # Scripts documentation
-└── references/                           # On-demand reference docs
-    ├── REFERENCE.md                      # Complete technical reference
-    ├── STAGES.md                         # Workflow & decision trees
-    ├── SYNCFUSION-MAPPING.md             # Component mapping guide
-    ├── WEB-STANDARDS.md                  # WCAG/security checklists
-    ├── LAYOUT-VARIANTS.md                # Pre-designed layout catalog
-    ├── EXAMPLES.md                       # Generated code samples
-    └── TROUBLESHOOTING.md                # Error solutions & FAQ
+├── SKILL.md                              # This file (Agent Skills spec compliant)
+├── references/                           # One-level-deep stage guides + support docs
+│   ├── stage-1-intent-analysis.md        # Stage 1 guidance document
+│   ├── stage-2-project-detection.md      # Stage 2 guidance document
+│   ├── stage-3-layout-confirmation.md    # Stage 3 guidance document (USER DECISION)
+│   ├── stage-4-component-picking.md      # Stage 4 guidance document (FULLY AUTO)
+│   ├── stage-6-code-generation.md        # Stage 6 guidance document
+│   ├── stage-7-validation.md             # Stage 7 guidance document (USER DECISION)
+│   ├── stage-8-dependencies.md           # Stage 8 guidance document
+│   ├── SYNCFUSION-MAPPING.md             # Component skills catalog
+│   ├── LAYOUT-VARIANTS.md                # Pre-designed variant options (2 per type)
+│   ├── WEB-STANDARDS.md                  # WCAG 2.1 AA + security + performance rules
+│   ├── CODE-BLOCKS.md                    # Prebuilt code patterns
+│   ├── EXAMPLES.md                       # Real generated code samples
+│   └── TROUBLESHOOTING.md                # Error solutions & FAQ
+└── assets/                               # Static resources
+    └── validation-rules.md               # Validation checklist for Stage 7
 ```
+
+**Note:** No scripts/ directory (removed in v2.0). All guidance is AI-native markdown.
+Old stages 5 and 9 (preview + insertion) removed. Stages renumbered 1,2,3,4,6,7,8.
 
 ## Quick Start
 
@@ -119,212 +119,255 @@ Output:
   ✓ Accessibility compliance
 ```
 
-## How It Works: 9-Stage Pipeline
+## How It Works: 8-Stage AI Orchestration (Stateless)
 
-The skill orchestrates **9 sequential stages** internally. Each stage enriches a unified `UIBuilderContext` state object.
+The skill orchestrates **8 stages of pure AI reasoning** with **only 2 user decision points**.
+
+**Key Architecture:**
+- **No UIBuilderContext**: Stateless design; conversation history maintains state
+- **Pure AI reasoning**: Each stage reads guidance docs, analyzes context, makes decisions
+- **2 user decisions**: Stage 3 (layout variant) + Stage 7 (validation result)
+- **6 fully automated stages**: 1, 2, 4, 6, 8 + final code insertion
+- **Stage 4 is fully automatic**: AI picks components without user interaction
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│ Stage 1: Intent Analysis & Setup                           │
-│   Parse user request → classify intent → initialize context│
-├─────────────────────────────────────────────────────────────┤
-│ Stage 2: Project Detection & Configuration                 │
-│   Scan project → detect framework → read preferences       │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 3: Layout Confirmation                                │
-│   Present 2-3 layout variants → user confirms structure    │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 4: Component Picking                                  │
-│   Map layout → Syncfusion components → user confirms picks │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 5: Preview Generation                                 │
-│   Generate interactive HTML preview → user approves        │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 6: Code Generation                                    │
-│   Generate .tsx, .css, TypeScript interfaces               │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 7: Web Standards Validation                           │
-│   Validate WCAG 2.1 AA, security, performance, SEO         │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 8: Dependency Management                              │
-│   Detect packages → resolve conflicts → npm install        │
-├─────────────────────────────────────────────────────────────┤
-│ Stage 9: Code Insertion/Integration                         │
-│   Insert files → update imports → verify build             │
-└─────────────────────────────────────────────────────────────┘
+User Request
+    ↓
+[Stage 1: Intent Analysis] 
+  AI reads query → identifies component type & features
+    ↓
+[Stage 2: Project Detection]
+  AI scans project → detect framework, language, preferences
+    ↓
+[Stage 3: Layout Confirmation] ⭐ USER DECISION #1
+  AI presents 2 layout variants
+  User chooses → locks layout
+    ↓
+[Stage 4: Component Picking] (FULLY AUTOMATIC)
+  AI maps layout to Syncfusion components
+  No user interaction needed
+    ↓
+[Stage 6: Code Generation]
+  AI generates .tsx, .css, TypeScript interfaces
+  With accessibility + responsive design built-in
+    ↓
+[Stage 7: Validation] ⭐ USER DECISION #2
+  AI validates WCAG 2.1 AA + security + performance
+  Binary result: PASS ✓ or FAIL ✗
+  User confirms or overrides
+    ↓
+[Stage 8: Dependencies]
+  AI detects required packages
+  Presents npm install command or runs it
+    ↓
+[Code Insertion]
+  AI inserts files into project
+  Updates imports, verifies build
+    ↓
+✓ Complete
 ```
 
-**Entry Point**: `scripts/orchestrator.py` — see implementation for detailed stage execution logic.
+**Stage Descriptions:**
+
+- **Stage 1 (Intent Analysis)**: Parse user query, identify component type and features. Read: `references/stage-1-intent-analysis.md`
+- **Stage 2 (Project Detection)**: Auto-detect framework, language, CSS strategy, component directory. Read: `references/stage-2-project-detection.md`
+- **Stage 3 (Layout Confirmation)**: Present 2 pre-designed variants; user confirms choice. Read: `references/stage-3-layout-confirmation.md` + `references/LAYOUT-VARIANTS.md`
+- **Stage 4 (Component Picking)**: Map layout elements to Syncfusion components (FULLY AUTOMATED). Read: `references/stage-4-component-picking.md` + `references/SYNCFUSION-MAPPING.md`
+- **Stage 6 (Code Generation)**: Generate React with accessibility + responsive design. Read: `references/stage-6-code-generation.md` + `references/CODE-BLOCKS.md`
+- **Stage 7 (Validation)**: Validate WCAG 2.1 AA, security, performance. Binary pass/fail. Read: `references/stage-7-validation.md` + `assets/validation-rules.md`
+- **Stage 8 (Dependencies)**: Detect packages, resolve conflicts, prepare install command. Read: `references/stage-8-dependencies.md`
+- **Code Insertion**: AI inserts files, updates imports, verifies build succeeds.
+
+**User Interaction Summary:**
+
+| Stage | Interaction |
+|-------|-------------|
+| 1 | None (AI analyzes) |
+| 2 | Confirm auto-detected settings |
+| 3 | ⭐ Choose layout variant (2 options) |
+| 4 | None (AI decides components) |
+| 6 | None (AI generates) |
+| 7 | ⭐ Confirm validation result (pass/fail/override) |
+| 8 | Optional (confirm npm install) |
+| Insertion | None (AI executes) |
+
+**Total user decisions: 2**. Rest fully automated with AI reasoning + guidance docs.
 
 ## Agent Instructions
 
-### Activation
+### When User Requests UI Component Generation
 
-When the user requests UI component generation:
+1. **Validate scope**: Confirm request is for frontend components (not backend/API)
+2. **Load guidance**: Read `stage-1-intent-analysis.md` to understand Stage 1
+3. **Execute 8-stage flow**: Follow the orchestration flow shown above
+4. **Progressive disclosure**: Load stage guides on-demand; load support references only when needed
+5. **Maintain conversation history**: Each stage reads previous decisions from conversation context (stateless)
 
-1. **Validate request scope**: Confirm it's a frontend component/page request (not backend/API)
-2. **Load orchestrator**: Execute `scripts/orchestrator.js` with user request
-3. **Follow pipeline**: Execute stages 1-9 sequentially (each stage may load additional resources)
-4. **Progressive disclosure**: Load reference docs and templates only when needed
+### Stage Execution & Reference Loading
 
-### Execution Flow
+**Stage 1: Intent Analysis**
+- Read: `references/stage-1-intent-analysis.md`
+- Task: Parse user query, identify component type, resolve ambiguities
+- Output: Component type + modifiers + target directory
 
-**Stage 1: Intent Analysis** (`scripts/stage_1_intent.py`)
-- Parse natural language request
-- Classify intent: `generate_component`, `generate_page`, `modify_component`
-- Extract component type, modifiers, target directory
-- Resolve ambiguities with clarifying questions
-- Initialize `UIBuilderContext` state object
-- **Reference**: Keyword classification logic in script
+**Stage 2: Project Detection**
+- Read: `references/stage-2-project-detection.md`
+- Task: Auto-detect React framework, language, CSS strategy, formatting rules
+- Output: Project configuration + user confirmation
 
-**Stage 2: Project Detection** (`scripts/stage_2_detection.py`)
-- Scan for `package.json`, `tsconfig.json`, `next.config.js`, etc.
-- Detect framework (React, Next.js App/Pages Router, Vite, CRA)
-- Read preferences (TypeScript, CSS strategy, formatting rules)
-- Identify component directory (`src/components/`, `app/components/`)
-- Handle Syncfusion license key (prompt if missing, inject `registerLicense()`)
-- **Reference**: Project config files
+**Stage 3: Layout Confirmation** ⭐ USER DECISION #1
+- Read: `references/stage-3-layout-confirmation.md` + `references/LAYOUT-VARIANTS.md`
+- Task: Present 2 pre-designed variants; ask clarifying questions
+- Output: User confirms variant → locks layout specification
 
-**Stage 3: Layout Confirmation** (`scripts/stage_3_layout.py`)
-- Present 2-3 layout variants specific to component type
-- Ask clarifying questions (fields, features, styling)
-- User confirms structure and requirements
-- Validate selections
-- **Reference**: `references/LAYOUT-VARIANTS.md` for variant catalog
+**Stage 4: Component Picking** (FULLY AUTOMATED)
+- Read: `references/stage-4-component-picking.md` + `references/SYNCFUSION-MAPPING.md`
+- Task: Map layout elements to Syncfusion components automatically
+- Output: Component mapping locked (no user interaction)
 
-**Stage 4: Component Picking** (`scripts/stage_4_components.py`)
-- Map layout elements to Syncfusion components
-- Query Syncfusion skills library for available components
-- Present component selections with explanations
-- User confirms or selects alternatives
-- **Reference**: `references/SYNCFUSION-MAPPING.md` for component mapping
+**Stage 6: Code Generation**
+- Read: `references/stage-6-code-generation.md` + `references/CODE-BLOCKS.md`
+- Task: Generate React .tsx, CSS, TypeScript interfaces
+- Ensure: WCAG 2.1 AA accessibility, responsive design, validation logic
+- Output: Generated files ready for review
 
-**Stage 5: Preview Generation** (`scripts/stage_5_preview.py`)
-- Generate self-contained HTML preview
-- Determine delivery mechanism (Webview, file, or markdown)
-- Show responsive breakpoints, accessibility features
-- User approves or requests modifications
-- **Reference**: Preview templates in script
+**Stage 7: Validation** ⭐ USER DECISION #2
+- Read: `references/stage-7-validation.md` + `assets/validation-rules.md` + `references/WEB-STANDARDS.md`
+- Task: Validate against WCAG 2.1 AA, security, performance standards
+- Auto-apply fixes where possible
+- Output: Binary result (PASS ✓ or FAIL ✗) → user confirms or overrides
 
-**Stage 6: Code Generation** (`scripts/stage_6_codegen.py`)
-- Generate `.tsx` component with semantic HTML
-- Create CSS stylesheet (CSS Modules, Tailwind, or inline)
-- Generate TypeScript interfaces for props and state
-- Add JSDoc documentation and usage comments
-- Include validation logic, error handling, event handlers
-- **Reference**: `references/EXAMPLES.md` for code patterns
+**Stage 8: Dependencies**
+- Read: `references/stage-8-dependencies.md`
+- Task: Detect required Syncfusion packages, resolve version conflicts
+- Output: npm install command or auto-install
 
-**Stage 7: Web Standards Validation** (`scripts/stage_7_validation.py`)
-- Validate WCAG 2.1 AA compliance (semantic HTML, ARIA, keyboard nav, contrast)
-- Check security (input sanitization, no XSS vulnerabilities)
-- Verify performance (React.memo, lazy loading)
-- Validate SEO markup (heading hierarchy, semantic structure)
-- Auto-fix common issues
-- Present compliance report
-- **Reference**: `references/WEB-STANDARDS.md` for validation rules
+**Code Insertion**
+- Task: Insert generated files into project, update imports, verify build
+- Output: Success report with file paths
 
-**Stage 8: Dependency Management** (`scripts/stage_8_dependencies.py`)
-- Detect required Syncfusion packages
-- Check existing `package.json` for version conflicts
-- Resolve conflicts (upgrade, keep, compromise)
-- Run `npm install` (or yarn/pnpm)
-- Verify installation success
-- **Reference**: Package resolution logic in script
+### Key Differences from v1.0 (Old Spec)
 
-**Stage 9: Code Insertion** (`scripts/stage_9_insertion.py`)
-- Insert generated files into project
-- Update index/barrel exports
-- Inject Syncfusion license registration (if needed)
-- Verify build compiles successfully
-- Present success report with file locations
-- **Reference**: `references/TROUBLESHOOTING.md` for error handling
+| Aspect | Old (v1.0) | New (v2.0) |
+|--------|-----------|-----------|
+| **Architecture** | 9 Python scripts + UIBuilderContext state object | 8 pure AI reasoning stages + conversation history |
+| **User Interaction** | Multiple confirmations per stage | Only 2 decisions (Stage 3 + Stage 7) |
+| **Component Picking** | User reviews and confirms | Fully automated (AI decides) |
+| **File Structure** | `scripts/` directory with Python executables | `references/` with markdown guidance docs |
+| **Scope** | Includes preview stage + insertion script | Uses AI's native file operations for insertion |
+| **State Management** | Unified UIBuilderContext object | Stateless; conversation history = state |
 
-### Boundary Rules (Critical)
+### Boundary Rules (CRITICAL)
 
 **AI agents executing this skill MUST:**
 
-1. **Only modify frontend files** — Never touch `app/api/`, `pages/api/`, `server/`, `backend/` directories
-2. **Never generate async server functions** — No Route Handlers, Server Actions, or backend code
-3. **Never read/write secrets** — Exception: Write `SYNCFUSION_LICENSE_KEY` to `.env.local` when user provides it
-4. **Use mock data until API wiring** — Use `useState` with hardcoded samples, no `fetch()` to real endpoints
-5. **Redirect backend requests** — If user asks for backend work, respond: *"This skill generates frontend UI only. The backend integration is your application's responsibility. I can generate the frontend component—shall I proceed?"*
+1. **Frontend only**: Never generate backend code (API routes, database schemas, middleware)
+2. **Mock data only**: Use `useState` with hardcoded samples; no `fetch()` to real APIs
+3. **No secrets**: Exception: `.env.local` for `SYNCFUSION_LICENSE_KEY` when user provides
+4. **React components only**: Generate `.tsx`/`.jsx` files in component directories
+5. **Redirect backend requests**: *"This skill generates frontend UI only. Backend integration is your app's responsibility. Ready to generate the frontend?"*
 
 ### Error Handling
 
 If any stage fails:
-1. **Capture error** in `UIBuilderContext.stageResults[stageId].error`
-2. **Attempt recovery** (e.g., retry with fallback options)
-3. **If unrecoverable**, present error to user with troubleshooting steps
-4. **Rollback checkpoint** — Option to revert to last successful stage
-5. **Consult**: `references/TROUBLESHOOTING.md` for common errors
 
-### Resource Loading Strategy
+1. **Retry once** with same approach
+2. **If retry fails**, attempt workaround or skip to next stage
+3. **Notify user** with error message from stage output
+4. **Offer recovery**: *"Would you like to go back to Stage 3 and choose a different layout?"*
+5. **Reference**: `references/TROUBLESHOOTING.md` for common errors
 
-**Optimize context by loading on-demand:**
+### Resource Loading Strategy (Progressive Disclosure)
 
-| Resource | When to Load |
-|----------|--------------|
-| `scripts/orchestrator.py` | On skill activation |
-| `scripts/stage_*.py` | When executing that stage |
-| `scripts/context.py`, `scripts/README.md` | On skill activation (shared utilities) |
-| `references/*.md` | Only when detailed info needed (see table below) |
+**Load SKILL.md first** (you're reading it now) ~400 lines
 
-**Reference Documentation Loading:**
+**Load stage guides on-demand** (each <200 lines):
+- `stage-1-intent-analysis.md` → During Stage 1
+- `stage-2-project-detection.md` → During Stage 2
+- etc.
 
-| Reference File | Load When | Purpose |
-|----------------|-----------|---------|
-| `REFERENCE.md` | Need technical details on stages | Complete stage-by-stage technical reference |
-| `STAGES.md` | Need workflow decision trees | Step-by-step workflows with decision logic |
-| `SYNCFUSION-MAPPING.md` | Stage 4: Component Picking | Component mapping and selection guides |
-| `WEB-STANDARDS.md` | Stage 7: Validation | WCAG, security, performance checklists |
-| `LAYOUT-VARIANTS.md` | Stage 3: Layout Confirmation | Pre-designed variant catalog |
-| `EXAMPLES.md` | Need code examples or patterns | Real generated code samples |
-| `TROUBLESHOOTING.md` | Errors or user questions | Error solutions and FAQ |
+**Load support references only when needed**:
+- `LAYOUT-VARIANTS.md` → When presenting Stage 3 options
+- `SYNCFUSION-MAPPING.md` → When picking components in Stage 4
+- `WEB-STANDARDS.md` → When validating in Stage 7
+- `CODE-BLOCKS.md` → When generating code in Stage 6
+- `EXAMPLES.md` → When user asks for examples
+- `TROUBLESHOOTING.md` → When errors occur
+- `assets/validation-rules.md` → When validating in Stage 7
 
-**Result**: Core skill loads ~5-10KB, full documentation available but not loaded unless needed.
+**Result**: Initial load ~400 lines (SKILL.md only). Full spec available on-demand, never exceeding Agent Skills context limits.
 
-## Configuration
+## Configuration & User Customization
 
-### Project Setup Detection
+### Auto-Detected Settings
 
-The skill auto-detects:
-- **Framework**: React, Next.js (App/Pages Router), Vite, CRA
-- **Language**: TypeScript or JavaScript
-- **Styling**: CSS Modules, Tailwind, inline styles, or CSS-in-JS
+During **Stage 2 (Project Detection)**, AI automatically detects:
+
+- **Framework**: React, Next.js (App Router / Pages Router), Vite, Create React App
+- **Language**: TypeScript (if `tsconfig.json` exists) or JavaScript
+- **Styling**: CSS Modules, Tailwind CSS, CSS-in-JS, or inline styles
 - **Formatting**: Prettier/ESLint rules (indentation, quotes, semicolons)
-- **Structure**: Component directory location
+- **Component Directory**: `src/components/`, `app/components/`, or similar
 
-### Customization Options
+### User Override Options
 
-Users can override detected settings:
-- Component output directory
-- TypeScript vs JavaScript
-- CSS strategy (Modules, Tailwind, inline)
-- Theme (light, dark, custom)
-- Accessibility level (WCAG AA, AAA, or custom)
-- Named vs default exports
+In **Stage 2**, user can override any detected setting:
 
-### Syncfusion License
+```
+Detected Settings:
+  Framework: Next.js 14 (App Router)
+  Language: TypeScript
+  CSS: CSS Modules
+  Component Directory: app/components/
 
-**Required for production use**. The skill handles license key management:
+[Confirm] [Override Each] [Cancel]
+```
+
+### Syncfusion License Configuration
+
+The skill handles license key setup:
 
 1. **Check** for existing `SYNCFUSION_LICENSE_KEY` in `.env.local`
-2. **Prompt user** if missing: *"Get a free Community License at https://www.syncfusion.com/account/manage-trials"*
-3. **If provided**, write to `.env.local` and inject `registerLicense()` into app entry point
-4. **If skipped**, warn that watermark will appear
+2. **If missing**, prompt user: *"Get a free Community License at https://www.syncfusion.com/account/manage-trials"*
+3. **If provided**, write to `.env.local` + inject `registerLicense()` in app entry
+4. **If skipped**, proceed but warn that watermark will appear in preview
 
-## Standards & Best Practices
+---
 
-All generated code follows:
+## Code Generation Standards
 
-- **ES6+ syntax** (const/let, arrow functions, destructuring)
-- **TypeScript** (optional but recommended, full type safety)
-- **Semantic HTML5** (proper element usage, heading hierarchy)
-- **WCAG 2.1 AA** (ARIA labels, keyboard nav, color contrast ≥4.5:1)
-- **Responsive design** (mobile-first, breakpoints at 320px, 768px, 1024px)
-- **Performance** (React.memo, lazy loading, optimized re-renders)
-- **Security** (input sanitization, no XSS, no hardcoded secrets)
-- **SEO-friendly markup** (semantic structure, proper headings)
+All generated code includes:
+
+### Accessibility (WCAG 2.1 AA)
+- ✅ Semantic HTML5 (`<form>`, `<label>`, `<input>`, `<button>`)
+- ✅ ARIA labels and descriptions
+- ✅ Keyboard navigation (tab order, focus management)
+- ✅ Color contrast ≥ 4.5:1
+- ✅ Focus indicators on interactive elements
+
+### Responsive Design
+- ✅ Mobile-first CSS (320px base, then scale up)
+- ✅ Flexbox/Grid layouts (no fixed widths)
+- ✅ Media queries at 768px, 1024px+ breakpoints
+- ✅ Touch-friendly buttons (44x44px minimum)
+
+### Security
+- ✅ Input validation and sanitization
+- ✅ No `dangerouslySetInnerHTML` without sanitization
+- ✅ No hardcoded secrets
+- ✅ No XSS vulnerabilities
+
+### Performance
+- ✅ React.memo for stable components
+- ✅ useCallback for event handlers
+- ✅ Lazy loading for large components
+- ✅ Optimized re-renders
+
+### TypeScript & Types
+- ✅ Full type coverage (no `any` types)
+- ✅ Props interfaces with JSDoc
+- ✅ Event handler signatures
+- ✅ State type annotations
 
 ## Examples
 
@@ -352,19 +395,28 @@ See `references/EXAMPLES.md` for complete before/after code samples.
 
 ## Additional Resources
 
-All reference documentation follows progressive disclosure—load only when needed:
+### Quick Reference by Use Case
 
-| Reference File | Purpose | When to Use |
-|----------------|---------|-------------|
-| `references/REFERENCE.md` | Complete technical reference for all 9 stages | Need detailed stage specifications |
-| `references/STAGES.md` | Step-by-step workflows with decision trees | Understanding workflow logic |
-| `references/SYNCFUSION-MAPPING.md` | Component mapping reference guide | During Stage 4 (Component Picking) |
-| `references/WEB-STANDARDS.md` | WCAG 2.1 AA, security, performance rules | During Stage 7 (Validation) |
-| `references/LAYOUT-VARIANTS.md` | Full catalog of form/table/nav variants | During Stage 3 (Layout Confirmation) |
-| `references/EXAMPLES.md` | Real before/after generated code samples | For learning or reference |
-| `references/TROUBLESHOOTING.md` | Common errors, debugging tips, FAQ | When errors occur or user has questions |
+| Need | Reference File |
+|------|-----------------|
+| Understanding workflow | This SKILL.md file |
+| How Stage X works | `references/stage-X-*.md` |
+| Component options | `references/SYNCFUSION-MAPPING.md` |
+| Layout templates | `references/LAYOUT-VARIANTS.md` |
+| Code patterns | `references/CODE-BLOCKS.md` |
+| Full code examples | `references/EXAMPLES.md` |
+| Validation rules | `assets/validation-rules.md` |
+| Accessibility/security | `references/WEB-STANDARDS.md` |
+| Troubleshooting | `references/TROUBLESHOOTING.md` |
 
-**Note**: Each reference file includes a table of contents and is under 800 lines for optimal loading.
+### Architecture Compliance
+
+✅ **Agent Skills Specification Compliant v2.0**
+- YAML frontmatter with metadata
+- One-level-deep file structure (no nested references between guides)
+- Progressive disclosure (core <500 lines, details on-demand)
+- Markdown-based guidance (AI-native)
+- Clear scope boundaries (frontend only)
 
 ## License & Attribution
 
@@ -382,6 +434,6 @@ For issues or questions:
 
 ---
 
-**Version**: 1.0.0 (Phase 1 MVP)  
-**Last Updated**: April 15, 2026  
-**Target Release**: Q2 2026
+**Version**: 2.0 (AI-Native Architecture)  
+**Last Updated**: April 16, 2026  
+**Next Phase**: Observability, multi-language support, advanced orchestration patterns
